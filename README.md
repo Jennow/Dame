@@ -12,4 +12,5 @@
 - Das ganze als Android App
 - Ausbesserung der kleinen Fehler (Werden im letzten Video angedeutet)
 - Hauptmenü
+- MVC oder MVP Struktur
 
