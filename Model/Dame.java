@@ -2,9 +2,18 @@ package Model;
 
 import GUI.Feld;
 
+/**
+ * in istOk sind hier die Laufregeln des Dame Steins festgelegt. Sie darf sowohl nach oben als auch nach unten laufen. Allerdings immer in einer diagonalen. Man darf mit der Dame in einem Zug beliebig viele
+ * Felder überspringen. 
+ * @author Simon und Jenny
+ *
+ */
 public class Dame extends Stein{
-
-	public Dame(Feld feld, boolean istSchwarz) {
+	
+	/**Ein Dame Stein wird erzeugt. Die Parameter werden von der Superklasse Stein übernommen.
+	 * @param feld bezeichnet das Feld auf welchem sich der Stein befindet
+	 * @param istSchwarz zeigt an, ob der Stein schwarz(true) oder weiß(false) ist
+	 */public Dame(Feld feld, boolean istSchwarz) {
 		super(feld, istSchwarz);
 	}
 

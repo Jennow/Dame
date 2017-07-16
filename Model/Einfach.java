@@ -2,12 +2,23 @@ package Model;
 
 import GUI.Feld;
 
+/**
+ * in istOk sind hier die Laufregeln des einfachen Steins festgelegt. 
+ * Er darf nur 1 oder 2 diagonale Schritte machen. Auﬂerdem darf man immer nur von sich aus nach vorne laufen. (Schwarz nach oben, weiﬂ nach unten)
+ * @author Simon und Jenny
+ *
+ */
 public class Einfach extends Stein{
 
+	/**Ein einfacher Stein wird erzeugt. Die Parameter werden von der Superklasse Stein ¸bernommen.
+	 * @param feld bezeichnet das Feld auf welchem sich der Stein befindet
+	 * @param istSchwarz zeigt an, ob der Stein schwarz(true) oder weiﬂ(false) ist
+	 */
 	public Einfach(Feld feld, boolean istSchwarz) {
 		super(feld, istSchwarz);
 	}
-
+	
+	
 	@Override
 	public boolean istOk(Feld feld) {
 	

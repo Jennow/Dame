@@ -7,7 +7,11 @@ import javax.swing.JButton;
 
 import Model.Dame;
 import Model.Stein;
-
+/**
+ * Ein Feld ist eines der 100 Kästchen, die auf dem Spielbrett zu finden sind. Es ist anklickbar und erbt daher von JButton.
+ * @author jenif
+ *
+ */
 public class Feld extends JButton { // Jedes Feld ist ein JButton
 
 	private Spielbrett brett;
@@ -16,7 +20,13 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 	private int zeile;
 	private int spalte;
 	
-	
+	/**
+	 * Ein Fald wird erzeugt
+	 * @param brett ist das Spielbrett auf dem sich das Feld befindet
+	 * @param istSchwarz legt fest, ob ein Feld schwarz oder weiß ist
+	 * @param zeile Position des Feldes in y Richtung
+	 * @param spalte Position des Feldes in x Richtung
+	 */
 	public Feld( Spielbrett brett, boolean istSchwarz, int zeile, int spalte){
 		this.brett = brett;
 		this.istSchwarz = istSchwarz;
@@ -24,10 +34,19 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 		this.spalte = spalte;
 	}
 	
+	/**
+	 * Setter, der die Methode setStein(Stein stein, boolean init) mit dem boolean Wert false aufruft. Dies bedeutet, dass das Feld gerade nicht mehr dabei ist, sich zu initialisieren
+	 * @param stein der auf das Feld gelegt wird
+	 */
 	public void setStein(Stein stein) {
 		setStein(stein, false);
 	}
 	
+	/**
+	 * Setter, der einen Stein auf das entsprechende Feld legt. Außerdem wird sich gemerkt, dass der Zug zuende ist und die Farbe des Steines wird beibehalten
+	 * @param stein der auf das Feld gesetzt werden soll
+	 * @param init ist dieser Wert true, befindet sich das Spielfeld in der initialisierungsphase und es werden noch keine Dame-Steine auf die letzten Reihen gelegt
+	 */
 	public void setStein(Stein stein, boolean init) {
 		if( !init && stein.getClass().getCanonicalName().equals("Model.Einfach") && (zeile == 0 || zeile == 9)){
 			stein = new Dame (this, stein.getIstSchwarz());
@@ -42,24 +61,43 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 		
 		setText(stein.toString());
 	}
+	/**
+	 * Getter für das Spielbrett, auf dem das Feld liegt
+	 * @return Spielbrett
+	 */
 	public Spielbrett getBrett() {
 		return brett;
 	}
 	
+	/**
+	 * Getter für den Stein, der auf dem Feld liegt.
+	 * @return Stein
+	 */
 	public Stein getStein() {
 		return stein;
 	}
 	
+	/**
+	 * Ein Stein wird gelöscht. Ein neuer Zug beginnt
+	 */
 	public void steinWeg(){
 		stein = null;
 		brett.merkeZugBeginn();
 		setText("");
 	}
 	
+	/**
+	 * Getter für die Zeile eines Feldes
+	 * @return
+	 */
 	public int getZeile() {
 		return zeile;
 	}
 	
+	/**
+	 * Getter für die Spalte eines Faldes
+	 * @return
+	 */
 	public int getSpalte() {
 		return spalte;
 	}
