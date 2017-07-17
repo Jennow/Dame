@@ -5,10 +5,11 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
+import Controller.GamePlay;
 import Model.Dame;
 import Model.Stein;
 /**
- * Ein Feld ist eines der 100 Kästchen, die auf dem Spielbrett zu finden sind. Es ist anklickbar und erbt daher von JButton.
+ * Ein Feld ist eines der 64 Kästchen, die auf dem Spielbrett zu finden sind. Es ist anklickbar und erbt daher von JButton.
  * @author jenif
  *
  */
@@ -19,6 +20,7 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 	private Stein stein = null; // Nicht überall dürfen Steine sein (zB. auf weißen Feldern nicht)
 	private int zeile;
 	private int spalte;
+	GamePlay gp;
 	
 	/**
 	 * Ein Fald wird erzeugt
@@ -27,11 +29,12 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 	 * @param zeile Position des Feldes in y Richtung
 	 * @param spalte Position des Feldes in x Richtung
 	 */
-	public Feld( Spielbrett brett, boolean istSchwarz, int zeile, int spalte){
+	public Feld( GamePlay gp, Spielbrett brett, boolean istSchwarz, int zeile, int spalte){
 		this.brett = brett;
 		this.istSchwarz = istSchwarz;
 		this.zeile = zeile;
 		this.spalte = spalte;
+		this.gp = gp;
 	}
 	
 	/**
@@ -48,11 +51,11 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 	 * @param init ist dieser Wert true, befindet sich das Spielfeld in der initialisierungsphase und es werden noch keine Dame-Steine auf die letzten Reihen gelegt
 	 */
 	public void setStein(Stein stein, boolean init) {
-		if( !init && stein.getClass().getCanonicalName().equals("Model.Einfach") && (zeile == 0 || zeile == 9)){
+		if( !init && stein.getClass().getCanonicalName().equals("Model.Einfach") && (zeile == 0 || zeile == 7)){
 			stein = new Dame (this, stein.getIstSchwarz());
 		}
 		this.stein = stein;
-		brett.merkeZugEnde(stein);
+		gp.merkeZugEnde(stein);
 		stein.setFeld(this);
 		if(stein.getIstSchwarz()){
 		setForeground(Color.black);	
@@ -82,7 +85,7 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 	 */
 	public void steinWeg(){
 		stein = null;
-		brett.merkeZugBeginn();
+		gp.merkeZugBeginn();
 		setText("");
 	}
 	

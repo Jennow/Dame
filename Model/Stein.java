@@ -30,7 +30,7 @@ public abstract class Stein {
 	 */
 	public void setFeld(Feld feld) {
 		this.feld = feld;
-		feld.getBrett().merkeZugEnde( this );
+		feld.getBrett().gp.merkeZugEnde( this );
 	}
 
 	/**
