@@ -3,7 +3,7 @@ package Model;
 import GUI.Feld;
 
 /**
- * Ein Stein ist ein Objekt, welches ein zugehöriges Feld und eine Farbe beinhaltet. Es gibt zwei Arten von Steinen: Einfach und Dame.
+ * Ein Stein ist ein Objekt, welches ein zugehï¿½riges Feld und eine Farbe beinhaltet. Es gibt zwei Arten von Steinen: Einfach und Dame.
  * @author Simon und Jenny
  *
  */
@@ -23,7 +23,7 @@ public abstract class Stein {
 	}
 	
 	/**
-	 * Nachdem ein Stein auf ein neues Feld gesetzt wurde, wird das neue Feld mit dieser Methode gesetzt. Außerdem wird die Methode merkeZugEnde( this )
+	 * Nachdem ein Stein auf ein neues Feld gesetzt wurde, wird das neue Feld mit dieser Methode gesetzt. Auï¿½erdem wird die Methode merkeZugEnde( this )
 	 * im Spielbrett aufgerufen.
 	 * @param feld
 	 * @see com.GUI.Spielbrett#merkeZugEnde(Stein stein)
@@ -34,7 +34,7 @@ public abstract class Stein {
 	}
 
 	/**
-	 * Getter für die Farbe des Steins (Schwarz = true, weiß = false)
+	 * Getter fï¿½r die Farbe des Steins (Schwarz = true, weiï¿½ = false)
 	 * @return boolean
 	 */
 	public boolean getIstSchwarz() {
@@ -42,7 +42,7 @@ public abstract class Stein {
 	}
 	
 	/**
-	 * Getter für das Feld, auf dem sich der Stein aktuell befindet.
+	 * Getter fï¿½r das Feld, auf dem sich der Stein aktuell befindet.
 	 * @return Feld
 	 */
 	public Feld getFeld(){
@@ -57,9 +57,4 @@ public abstract class Stein {
 	 * @see com.Model.Dame
 	 */
 	abstract public boolean istOk (Feld feld);
-	
-	/**
-	 * Diese Methode gibt je nach Art des Steins (Dame/ Einfach) das dazugehörige Symbol aus. Diese Methode wird noch durch eine getSymbol Methode ersetzt, die einen Icon oder etwas ähnliches ausgibt.
-	 */
-	abstract public String toString();
 }

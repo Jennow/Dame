@@ -21,42 +21,42 @@ public boolean istOk (Stein stein, Feld ziel){
 		
 		int x1 = stein.getFeld().getSpalte(); // bisheriges x
 		int y1 = stein.getFeld().getZeile(); // bisheriges y
-		int x2 = ziel.getSpalte(); // gewünschtes x
-		int y2 = ziel.getZeile(); // gewünschtes y
+		int x2 = ziel.getSpalte(); // gewï¿½nschtes x
+		int y2 = ziel.getZeile(); // gewï¿½nschtes y
 		
-		int dX = x2 - x1; // Abstand zwischen bisherigem und gewünschtem x
-		int dY = y2 - y1; // Abstand zwischen bisherigem und gewünschtem y
+		int dX = x2 - x1; // Abstand zwischen bisherigem und gewï¿½nschtem x
+		int dY = y2 - y1; // Abstand zwischen bisherigem und gewï¿½nschtem y
 		
 		int stepX = dX > 0 ? 1 : -1; // ist dX positiv, soll stepX=1 sein. Ist dX negativ, soll stepX= -1 sein
-		int stepY = dY > 0 ? 1 : -1; // ***** Verkürzte Schreibweise für if Schleife. *****
+		int stepY = dY > 0 ? 1 : -1; // ***** Verkï¿½rzte Schreibweise fï¿½r if Schleife. *****
 				
-		if(Math.abs(dX) > 1){ // Wenn der Zug länger als 1 Feld ist:
+		if(Math.abs(dX) > 1){ // Wenn der Zug lï¿½nger als 1 Feld ist:
 			
 			
 			
 			// Letztes Feld vor dem ziel-Stein: 
-			Feld letztesFeld = gp.sb.felder[y2 - stepY][x2 - stepX];
+			Feld letztesFeld = gp.sf.felder[y2 - stepY][x2 - stepX];
 			Stein letzterStein = letztesFeld.getStein();
 			
 			if (letzterStein != null){
-				// Stein eigener Farbe kann nichht übersprungen werden
+				// Stein eigener Farbe kann nichht ï¿½bersprungen werden
 				if(letzterStein.getIstSchwarz() == stein.getIstSchwarz()){
 					return false;	
 				}
 			}
 		
-			// Beim Einfachen Stein darf der übersprungene Stein nicht leer sein
+			// Beim Einfachen Stein darf der ï¿½bersprungene Stein nicht leer sein
 				if(stein.getClass().getCanonicalName().equals("Model.Einfach") && letzterStein == null){
 						return false;	
 				} 
-			// Zug länger als 2 Felder(Dame)
+			// Zug lï¿½nger als 2 Felder(Dame)
 			if(Math.abs(dX) > 2){
 				int z = y1 + stepY; // Zeile
 				int s = x1 + stepX; // Spalte
 				
-			// Erstes bis VORletztes Feld müssen leer sein:
+			// Erstes bis VORletztes Feld mï¿½ssen leer sein:
 				for( int i = 0; i< Math.abs(dX) - 2; i++){
-					if(gp.sb.felder[z][s].getStein() != null){
+					if(gp.sf.felder[z][s].getStein() != null){
 						
 						return false;
 					}
@@ -64,9 +64,9 @@ public boolean istOk (Stein stein, Feld ziel){
 					s += stepX;
 				}	
 			}
-			letztesFeld.steinWeg(); // Den stein des zuletzt übersprungenen Feldes entfernen
+			letztesFeld.steinWeg(); // Den stein des zuletzt ï¿½bersprungenen Feldes entfernen
 			
-//			// Der Spielzug der Dame muss beendet werden, wenn keine Möglichkeit zum schlagen eines Steins mehr vorhanden ist
+//			// Der Spielzug der Dame muss beendet werden, wenn keine Mï¿½glichkeit zum schlagen eines Steins mehr vorhanden ist
 //			try{ // Wegen der Out of Bound exception
 //				if(Math.abs(dX) > 2){
 //			

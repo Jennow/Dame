@@ -2,7 +2,10 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import Controller.GamePlay;
@@ -21,6 +24,16 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 	private int zeile;
 	private int spalte;
 	GamePlay gp;
+	
+	// Bilder, die momentan die Steine symbolisieren
+	Image einfachSchwarz = new ImageIcon(getClass().getResource("EinfachSchwarz.png")).getImage(); 
+	ImageIcon eS = new ImageIcon(einfachSchwarz.getScaledInstance(40,40,Image.SCALE_FAST ));
+	Image einfachWeiﬂ = new ImageIcon(getClass().getResource("EinfachWeiﬂ.png")).getImage();
+	ImageIcon eW = new ImageIcon(einfachWeiﬂ.getScaledInstance(40,40,Image.SCALE_FAST ));
+	Image dameSchwarz = new ImageIcon(getClass().getResource("DameSchwarz.png")).getImage(); 
+	ImageIcon dS = new ImageIcon(dameSchwarz.getScaledInstance(40,40,Image.SCALE_FAST ));
+	Image dameWeiﬂ = new ImageIcon(getClass().getResource("DameWeiﬂ.png")).getImage();
+	ImageIcon dW = new ImageIcon(dameWeiﬂ.getScaledInstance(40,40,Image.SCALE_FAST ));
 	
 	/**
 	 * Ein Fald wird erzeugt
@@ -42,11 +55,14 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 	 * @param stein der auf das Feld gelegt wird
 	 */
 	public void setStein(Stein stein) {
-		setStein(stein, false);
+		if(stein.getFeld().getZeile() == 0 || stein.getFeld().getZeile() == 7){ // Wenn man einen Einfachen STein aus diesen Reihen anklickt und gleich wieder ablegt, sollen sie nicht zu einer Dame werden. Daher wird der Wert init auf True gesetzt.
+			setStein(stein, true);
+		}
+		else setStein(stein, false);
 	}
 	
 	/**
-	 * Setter, der einen Stein auf das entsprechende Feld legt. Auﬂerdem wird sich gemerkt, dass der Zug zuende ist und die Farbe des Steines wird beibehalten
+	 * Setter, der einen Stein auf das entsprechende Feld legt. Auﬂerdem wird sich gemerkt, dass der Zug zuende ist und je nach Farbe und Steintyp wird ein anderer Icon genutzt.
 	 * @param stein der auf das Feld gesetzt werden soll
 	 * @param init ist dieser Wert true, befindet sich das Spielfeld in der initialisierungsphase und es werden noch keine Dame-Steine auf die letzten Reihen gelegt
 	 */
@@ -57,12 +73,21 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 		this.stein = stein;
 		gp.merkeZugEnde(stein);
 		stein.setFeld(this);
-		if(stein.getIstSchwarz()){
-		setForeground(Color.black);	
-		}
-		else setForeground(Color.white);
+		try{
+			if(stein.getClass().getCanonicalName().equals("Model.Einfach") && stein.getIstSchwarz()){
+			setIcon(eS);
+			}
+			else if (stein.getClass().getCanonicalName().equals("Model.Einfach") && !stein.getIstSchwarz()){
+				setIcon(eW);
+			}
+			else if (stein.getClass().getCanonicalName().equals("Model.Dame") && stein.getIstSchwarz()){
+				setIcon(dS);
+			}
+			else if (stein.getClass().getCanonicalName().equals("Model.Dame") && !stein.getIstSchwarz()){
+				setIcon(dW);
+			}
+		} catch ( Exception e){};	
 		
-		setText(stein.toString());
 	}
 	/**
 	 * Getter f¸r das Spielbrett, auf dem das Feld liegt
@@ -86,7 +111,7 @@ public class Feld extends JButton { // Jedes Feld ist ein JButton
 	public void steinWeg(){
 		stein = null;
 		gp.merkeZugBeginn();
-		setText("");
+		setIcon(null);
 	}
 	
 	/**

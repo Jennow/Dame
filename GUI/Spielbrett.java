@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -20,7 +22,11 @@ import Model.Stein;
  */
 public class Spielbrett extends JFrame{
 	
-
+	
+	Icon einfachSchwarz = new ImageIcon(getClass().getResource("EinfachSchwarz.png"));
+	Icon einfachWeiﬂ = new ImageIcon(getClass().getResource("EinfachWeiﬂ.png"));
+	
+	
 	/**
 	 * Enth‰lt einen int Wert, der festlegt, welcher Spieler aktuell an der Reihe ist.
 	 */
@@ -37,9 +43,9 @@ public class Spielbrett extends JFrame{
 		
 		this.gp = gp;
 		amZug = gp.amZugWEISS;
-		JPanel square = new JPanel();
-		square.setSize(300,300); // Erstmal dem JPanel Maﬂe zuweisen
-		square.setLayout(new GridLayout(8,8));
+		
+		
+		setLayout(new GridLayout(8,8));
 		boolean schwarz = true;
 		for(int z = 0; z<felder.length ; z++){ //zeile
 			for(int s =0; s<felder[z].length ; s++){ // spalte
@@ -87,7 +93,7 @@ public class Spielbrett extends JFrame{
 				});
 				felder[z][s] =  feld;// gerade erstelltes Feld an der jeweiligen Position einsetzen
 				if(schwarz){ // Felder einf‰rben
-					feld.setBackground(Color.darkGray);
+					feld.setBackground(Color.black);
 					if(z <=2 ){ // die oberen 4 Reihen bekommen weiﬂe, einfache Steine
 						feld.setStein( new Einfach(feld, false), true);
 						new Einfach(feld, false);
@@ -101,15 +107,15 @@ public class Spielbrett extends JFrame{
 					
 				}
 				else feld.setBackground(Color.white);
-				square.add(feld); // Dieses neue Feld hinzuf¸gen
+				add(feld); // Dieses neue Feld hinzuf¸gen
 				schwarz = !schwarz; // wechsel der Feldfarbe von Feld zu Feld zum Erstellen des Schachbrett-Musters
 			}
 			schwarz = !schwarz; // bei Zeilenwechsel soll ebenfalls die Feldfarbe ge‰ndert werden
 		}
-		add(square);
-		setSize(500,500);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+		setSize(420,420); // Grˆﬂe noch anpassen
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 }
 
