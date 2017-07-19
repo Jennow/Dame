@@ -14,7 +14,9 @@
 - Schöne Grafiken (Kann ruhig schlicht sein, aber gibt viele Extrapunkte, wenn das Ganze schick ausieht)
 - (Android App fertig?)
 - Ausbesserung der kleinen Fehler (NullPointer Exception, wenn bei einer Dame geprüft wird, ob sie noch einen Zug machen kann. (canJump() in der Klasse Spielregeln )
-- Hauptmenü? Login-Ansicht?
+- Hauptmenü?
+- Login-Ansicht? 
+- Ein Button, mit dem man Aufgeben kann, wenn man umzingelt ist und sich nicht mehr bewegen kann? Oder Algorithmus, der dann das Spiel von selbst beendet.
 
 
 
