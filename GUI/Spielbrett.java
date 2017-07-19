@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Controller.GamePlay;
@@ -35,6 +36,7 @@ public class Spielbrett extends JFrame{
 	public Feld [][] felder = new Feld [8][8];
 	private Stein st = null;
 	public GamePlay gp;
+	int weiter =5;
 	
 	/**
 	 * Ein Spielbrett wird erzeugt. Darin ist aktuell das JPanel, welches die Komponenten enthält.
@@ -46,7 +48,7 @@ public class Spielbrett extends JFrame{
 		
 		
 		setLayout(new GridLayout(8,8));
-		boolean schwarz = true;
+		boolean schwarz = false;
 		for(int z = 0; z<felder.length ; z++){ //zeile
 			for(int s =0; s<felder[z].length ; s++){ // spalte
 				Feld feld = new Feld( gp, this, schwarz, z, s);
@@ -76,7 +78,10 @@ public class Spielbrett extends JFrame{
 					else {
 						if(st.istOk(clicked) && gp.regeln.istOk(st, clicked)){
 							clicked.setStein(st); // Stein absetzen
-							if(amZug == gp.amZugSCHWARZ ){
+							if(gp.regeln.canJump(clicked.getStein(), felder) && clicked.getClass().getCanonicalName().equals("Model.Dame")){
+								amZug = amZug;
+							}
+							else if(amZug == gp.amZugSCHWARZ ){
 								amZug = gp.amZugWEISS;
 							}
 							else amZug = gp.amZugSCHWARZ;
@@ -89,7 +94,18 @@ public class Spielbrett extends JFrame{
 							amZug = amZugMem; // Zug ist noch nicht zuende.
 							// JDialog mit Warnung ausgeben :"Dieser Zug ist nicht möglich"
 						}
+						if (gp.hasWon()==0){
+							weiter = JOptionPane.showConfirmDialog(null, "Spieler Weiß hat gewonnen! juhiuuuu");
+						}
+						else if(gp.hasWon() == 1){
+							weiter = JOptionPane.showConfirmDialog(null, "Spieler Weiß hat gewonnen! juhiuuuu");
+						}
+						if (weiter == 0){
+							new GamePlay();
+						}		
 					}
+					
+				
 				});
 				felder[z][s] =  feld;// gerade erstelltes Feld an der jeweiligen Position einsetzen
 				if(schwarz){ // Felder einfärben
@@ -102,7 +118,7 @@ public class Spielbrett extends JFrame{
 					else if( z>=5 ){ //Die unteren 4 Reihen bekommen schwarze, einfache Steine
 						feld.setStein( new Einfach(feld, true) , true);
 						new Einfach(feld, true); 
-						feld.setForeground(Color.black);
+						feld.setForeground(Color.white);
 					}
 					
 				}

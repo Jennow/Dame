@@ -99,4 +99,40 @@ public boolean istOk (Stein stein, Feld ziel){
 		}
 		return true;
 	}
+
+/**
+ * Überprüft, ob der Stein einen weiteren Sprung machen kann
+ * @param stein - Der Stein, der eben seinen Zug vollendet hat
+ * @param felder - alle Felder auf dem Spielfeld
+ * @return
+ */
+public boolean canJump(Stein stein, Feld[][] felder) // Wirft oft eine Nullpointer Ecxeption und dann ist es Zufall, ob nun true oder false herauskommt...
+{
+	int steinX = stein.getFeld().getSpalte();
+	int steinY = stein.getFeld().getZeile();
+	try{
+		if(stein.getIstSchwarz()){ // Wenn der Stein einfach und weiß ist
+		
+			if(steinX >1 && steinY>1 && !felder[steinY-1][steinX-1].getStein().getIstSchwarz() && felder[steinY-2][steinX-2].getStein()==null){ // oben links
+				return true;
+			}
+			if(steinX <6 && steinY>1 && !felder[steinY+1][steinX-1].getStein().getIstSchwarz() && felder[steinY+2][steinX-2].getStein()==null){ // oben rechts
+				return true;
+			}
+		}
+		else if(!stein.getIstSchwarz()){ // Ernn der Stein einfach uns schwarz ist
+			if(steinX >1 && steinY<6 && felder[steinY-1][steinX+1].getStein().getIstSchwarz() && felder[steinY-2][steinX+2].getStein()==null){ // unten links
+				return true;
+			}
+			if(steinX <6 && steinY<6 && felder[steinY+1][steinX+1].getStein().getIstSchwarz() && felder[steinY+2][steinX+2].getStein()==null){ // u
+				return true;
+			}	
+		}
+		
+		 
+	}catch (Exception e){
+		System.out.println("NullPointer");
+	}
+	return false;
+}
 }
