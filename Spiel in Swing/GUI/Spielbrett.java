@@ -9,7 +9,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import Controller.GamePlay;
 import Model.Einfach;
@@ -53,16 +52,12 @@ public class Spielbrett extends JFrame{
 			for(int s =0; s<felder[z].length ; s++){ // spalte
 				Feld feld = new Feld( gp, this, schwarz, z, s);
 				
-				feld.addActionListener( event -> {
-					Feld clicked = null;
-					for(int z1 = 0; z1<felder.length ; z1++){
-						for(int s1 =0; s1<felder[z1].length ; s1++){
-							if(event.getSource() == felder[z1][s1]){ // Event Source mit allen Feldern vergleichen, um das geklickte Feld zu ermitteln
-								clicked = felder[z1][s1]; // Feld merken
-								break; // Nach Finden des Feldes kann Schleifendurchlauf abgebrochen werden.
-							}
-						}//zeile
-					}
+//				feld.addActionListener(new FeldListener());
+				feld.addActionListener( new ActionListener () {
+					
+					@Override
+					public void actionPerformed(ActionEvent event){
+					Feld clicked = (Feld) event.getSource();
 					int amZugMem = amZug; // merken, wer am Zug ist
 					if(gp.getZugBeginn()){ // Stein "In die Hand nehmen"
 						
@@ -78,7 +73,7 @@ public class Spielbrett extends JFrame{
 					else {
 						if(st.istOk(clicked) && gp.regeln.istOk(st, clicked)){
 							clicked.setStein(st); // Stein absetzen
-							if(gp.regeln.canJump(clicked.getStein(), felder) && clicked.getClass().getCanonicalName().equals("Model.Dame")){
+							if(gp.regeln.canJump(clicked.getStein(), felder)){
 								amZug = amZug;
 							}
 							else if(amZug == gp.amZugSCHWARZ ){
@@ -94,18 +89,21 @@ public class Spielbrett extends JFrame{
 							amZug = amZugMem; // Zug ist noch nicht zuende.
 							// JDialog mit Warnung ausgeben :"Dieser Zug ist nicht möglich"
 						}
-						if (gp.hasWon()==0){
-							weiter = JOptionPane.showConfirmDialog(null, "Spieler Weiß hat gewonnen! juhiuuuu");
+					}
+					if (gp.hasWon()==0 && gp.getZugBeginn()){
+							weiter = JOptionPane.showConfirmDialog(null, "Spieler Weiß hat gewonnen! Willst du nochmal spielen?");
 						}
-						else if(gp.hasWon() == 1){
-							weiter = JOptionPane.showConfirmDialog(null, "Spieler Weiß hat gewonnen! juhiuuuu");
+						else if(gp.hasWon() == 1 && gp.getZugBeginn()){
+							weiter = JOptionPane.showConfirmDialog(null, "Spieler Weiß hat gewonnen! Willst du nochmal spielen?");
 						}
 						if (weiter == 0){
 							new GamePlay();
+							dispose();
 						}		
+						else if(weiter == 1){
+							dispose();
+						}
 					}
-					
-				
 				});
 				felder[z][s] =  feld;// gerade erstelltes Feld an der jeweiligen Position einsetzen
 				if(schwarz){ // Felder einfärben
@@ -131,7 +129,7 @@ public class Spielbrett extends JFrame{
 		setVisible(true);
 		setSize(420,420); // Größe noch anpassen
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-	}
+		setDefaultCloseOperation(EXIT_ON_CLOSE);	
+	}		
 }
 

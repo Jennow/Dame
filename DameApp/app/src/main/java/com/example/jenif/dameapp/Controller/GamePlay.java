@@ -1,16 +1,7 @@
-package Controller;
+package com.example.jenif.dameapp.Controller;
 
 
-import java.awt.Color;
-import java.awt.GridLayout;
-
-import javax.swing.JPanel;
-
-import GUI.Feld;
-import GUI.SpielFrame;
-import GUI.Spielbrett;
-import Model.Einfach;
-import Model.Stein;
+import android.widget.Button;
 
 public class GamePlay {
 
@@ -23,6 +14,9 @@ public class GamePlay {
 	private boolean istZugBeginn = true; // CONTROLLER??
 	Spielbrett sf;
 	public Spielregeln regeln;
+	Stein st;
+	int weiter =5;
+
 	/**
 	 * Ein Spielbrett wird erzeugt. Darin ist aktuell das JPanel, welches die Komponenten enthï¿½lt.
 	 */
@@ -32,9 +26,9 @@ public class GamePlay {
 	}
 	
 	/**
-	 * Getter fï¿½r den zugBeginn. Ist dieser boolean true, ist gerade der Beginn des Zuges. Ist sie False, dann nicht. 
+	 * Getter fï¿½r den zugBeginn. Ist dieser boolean true, ist gerade der Beginn des Zuges. Ist sie False, dann nicht.
 	 * @return
-	 * @see com.GUI.Feld.steinWeg() 
+	 *
 	 */
 	public boolean getZugBeginn(){
 		return istZugBeginn;
@@ -63,9 +57,12 @@ public class GamePlay {
 		istZugBeginn = true;
 	}
 	
+	
+	
+	
 	/**
-	 * Diese Methode stellt fest, ob ein Spieler keine Steine mehr, und somit verloren hat. Die Integers können später auch durch Spieler ersetzt werden.
-	 * @return int ist bei Spieler Weiß 0, bei Schwarz 1 und wenn noch niemand gewonnen hat 3
+	 * Diese Methode stellt fest, ob ein Spieler keine Steine mehr, und somit verloren hat. Die Integers kï¿½nnen spï¿½ter auch durch Spieler ersetzt werden.
+	 * @return int ist bei Spieler Weiï¿½ 0, bei Schwarz 1 und wenn noch niemand gewonnen hat 3
 	 */
 	public int hasWon(){
 		int playerWeiss = 0;
@@ -90,9 +87,7 @@ public class GamePlay {
 		}
 		return noOne;
 	}
-	
-	
-	
+
 	/**
 	 * Main Methode, die Ein neues Spielbrett erzeugt.
 	 * @param args

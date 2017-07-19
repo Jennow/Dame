@@ -1,8 +1,7 @@
-package Controller;
+package com.example.jenif.dameapp.Controller;
 
-import GUI.Feld;
-import GUI.Spielbrett;
-import Model.Stein;
+
+import static com.example.jenif.dameapp.SpielActivity.buttons;
 
 public class Spielregeln {
 	
@@ -12,6 +11,12 @@ GamePlay gp;
 	 this.gp = gp;
  
  }
+ /**Legt fest, auf welche Felder man seinen Stein legen darf.
+  * 
+  * @param stein
+  * @param ziel
+  * @return
+  */
 public boolean istOk (Stein stein, Feld ziel){
 		
 		// Zielfeld darf nicht schon besetzt sein
@@ -23,6 +28,8 @@ public boolean istOk (Stein stein, Feld ziel){
 		int y1 = stein.getFeld().getZeile(); // bisheriges y
 		int x2 = ziel.getSpalte(); // gewï¿½nschtes x
 		int y2 = ziel.getZeile(); // gewï¿½nschtes y
+		int letztesX;
+		int letztesY;
 		
 		int dX = x2 - x1; // Abstand zwischen bisherigem und gewï¿½nschtem x
 		int dY = y2 - y1; // Abstand zwischen bisherigem und gewï¿½nschtem y
@@ -64,44 +71,15 @@ public boolean istOk (Stein stein, Feld ziel){
 					s += stepX;
 				}	
 			}
-			letztesFeld.steinWeg(); // Den stein des zuletzt ï¿½bersprungenen Feldes entfernen
-			
-//			// Der Spielzug der Dame muss beendet werden, wenn keine Mï¿½glichkeit zum schlagen eines Steins mehr vorhanden ist
-//			try{ // Wegen der Out of Bound exception
-//				if(Math.abs(dX) > 2){
-//			
-//					if(stepX==-1){ // Funktioniert noch nicht richtig
-//						for(int z = y1; z >=0; z--){ // Die Diagonalen nach oben absuchen
-//								if( felder[z][x1-(y1-z)].getStein() == null){ //Diagonale nach links oben
-//									if (felder[z-1][x1-(y1-z)-1].getStein() != null){} // Nichts Passiert. Der Spieler ist noch am Zug
-//									else gp.merkeZugEnde(stein);
-//								}
-//								else if (felder[z][x1+(y1-z)].getStein() == null){ // Diagonale nach rechts oben
-//									if(felder[z-1][x1+(y1-z)-1].getStein() != null){} // Nichts Passiert. Der Spieler ist noch am Zug
-//									else gp.merkeZugEnde(stein);
-//								}
-//						}
-//					}
-//					else if(stepX == 1){
-//						for(int z = y1; z <=9; z++){ // Die diagonalen nach unten absuchen
-//							if( felder[z][x1-(y1-z)].getStein() == null){ //Diagonale nach links unten
-//								if (felder[z+1][x1-(y1-z)+1].getStein() != null){} // Nichts Passiert. Der Spieler ist noch am Zug
-//								else gp.merkeZugEnde(stein);
-//							}
-//							else if (felder[z][x1+(y1-z)].getStein() == null){ // Diagonale nach rechts unten
-//								if(felder[z+1][x1+(y1-z)+1].getStein() != null){} // Nichts Passiert. Der Spieler ist noch am Zug
-//								else gp.merkeZugEnde(stein);
-//							}
-//						}
-//					}
-//				} 
-//			} catch (Exception e){}
+			letztesX = letztesFeld.getSpalte();
+			letztesY = letztesFeld.getZeile();
+			letztesFeld.steinWeg(buttons[letztesY][letztesX]);
 		}
 		return true;
 	}
 
 /**
- * Überprüft, ob der Stein einen weiteren Sprung machen kann
+ * ï¿½berprï¿½ft, ob der Stein einen weiteren Sprung machen kann
  * @param stein - Der Stein, der eben seinen Zug vollendet hat
  * @param felder - alle Felder auf dem Spielfeld
  * @return
@@ -111,20 +89,20 @@ public boolean canJump(Stein stein, Feld[][] felder) // Wirft oft eine Nullpoint
 	int steinX = stein.getFeld().getSpalte();
 	int steinY = stein.getFeld().getZeile();
 	try{
-		if(stein.getIstSchwarz()){ // Wenn der Stein einfach und weiß ist
+		if(stein.getIstSchwarz() && stein.getClass().getCanonicalName().equals("Model.Dame")){ // Wenn der Stein einfach und weiï¿½ ist
 		
 			if(steinX >1 && steinY>1 && !felder[steinY-1][steinX-1].getStein().getIstSchwarz() && felder[steinY-2][steinX-2].getStein()==null){ // oben links
 				return true;
 			}
-			if(steinX <6 && steinY>1 && !felder[steinY+1][steinX-1].getStein().getIstSchwarz() && felder[steinY+2][steinX-2].getStein()==null){ // oben rechts
+			if(steinX <6 && steinY>1 && !felder[steinY+1][steinX-1].getStein().getIstSchwarz() && felder[steinY+2][steinX-2].getStein()==null){ // unten links
 				return true;
 			}
 		}
-		else if(!stein.getIstSchwarz()){ // Ernn der Stein einfach uns schwarz ist
-			if(steinX >1 && steinY<6 && felder[steinY-1][steinX+1].getStein().getIstSchwarz() && felder[steinY-2][steinX+2].getStein()==null){ // unten links
+		else if(!stein.getIstSchwarz() && stein.getClass().getCanonicalName().equals("Model.Dame")){ // Ernn der Stein einfach uns schwarz ist
+			if(steinX >1 && steinY<6 && felder[steinY-1][steinX+1].getStein().getIstSchwarz() && felder[steinY-2][steinX+2].getStein()==null){ // oben rechts
 				return true;
 			}
-			if(steinX <6 && steinY<6 && felder[steinY+1][steinX+1].getStein().getIstSchwarz() && felder[steinY+2][steinX+2].getStein()==null){ // u
+			if(steinX <6 && steinY<6 && felder[steinY+1][steinX+1].getStein().getIstSchwarz() && felder[steinY+2][steinX+2].getStein()==null){ // unten rechts
 				return true;
 			}	
 		}
