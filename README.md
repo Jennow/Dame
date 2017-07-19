@@ -4,7 +4,7 @@
 
 - Einen funktioierenden Spielablauf mit der Option, das Spiel neu zu starten.
 - Nach dem Tutorial: https://java-tutorial.org/dame-spiel.html
-- MVC ähnliche Struktur
+- MVC ähnliche Struktur (Ich habe es nicht hinbekommen, den ActionListener auszulagern, damit er in dem Controller Package liegt. Vielleicht schaffst du es ja (: )
 - für die meisten Methoden ein Java Doc
 - Grundstruktur für die Android App (App selbst funktioniert noch nicht)
 
